@@ -178,6 +178,10 @@ function getAgencies(){
 function getRoutes(){
   var agency_key = $(this).data('agency-key');
 
+    if(agency_key == undefined) {
+        agency_key = "tec";
+    }
+
   $('#data').data('view-type', 'routes');
 
   $('#pageTitle').html('Routes for ' + agencies[agency_key].agency_name);
@@ -202,9 +206,9 @@ function getRoutes(){
 
 function getStops(){
   var agency_key = $(this).data('agency-key')
-    , route_id = $(this).data('route-id')
-    , route = agencies[agency_key].routes[route_id]
-    , routeTitle;
+  var route_id = $(this).data('route-id')
+  var route = agencies[agency_key].routes[route_id]
+  var routeTitle;
 
   if(route.route_short_name && route.route_long_name){
     routeTitle = route.route_short_name + ': ' + route.route_long_name;
@@ -432,24 +436,24 @@ function renderTable(data, viewType){
 
     switch(viewType){
       case 'agencies':
-        $(row).data('agency-key', item.agency_key);
+        $(row).attr('data-agency-key', item.agency_key);
         break;
       case 'agenciesNearby':
-        $(row).data('agency-key', item.agency_key);
+        $(row).attr('data-agency-key', item.agency_key);
         break;
       case 'routes':
-        $(row).data('agency-key', item.agency_key);
-        $(row).data('route-id', item.route_id);
+        $(row).attr('data-agency-key', item.agency_key);
+        $(row).attr('data-route-id', item.route_id);
         break;
       case 'routesNearby':
-        $(row).data('agency-key', item.agency_key);
-        $(row).data('route-id', item.route_id);
+        $(row).attr('data-agency-key', item.agency_key);
+        $(row).attr('data-route-id', item.route_id);
         break;
       case 'stops':
         var route_id = $('#data').data('route-id');
-        $(row).data('agency-key', item.agency_key);
-        $(row).data('route-id', route_id);
-        $(row).data('stop-id', item.stop_id);
+        $(row).attr('data-agency-key', item.agency_key);
+        $(row).attr('data-route-id', route_id);
+        $(row).attr('data-stop-id', item.stop_id);
         break;
 
     }
